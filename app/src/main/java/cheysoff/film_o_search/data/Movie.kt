@@ -5,8 +5,17 @@ import java.net.URL
 
 class Movie(
     val id: Int,
-    val name: String,
-    val description: String,
-    val image: Drawable?,
+    var name: String,
+    var description: String,
+    val imageURL: URL?,
     var liked: Boolean
-)
+){
+    init {
+        if (description.length > 35) {
+            description = description.substring(0, 35) + "..."
+        }
+        if (name.length > 30) {
+            name = name.substring(0, 30) + "..."
+        }
+    }
+}
