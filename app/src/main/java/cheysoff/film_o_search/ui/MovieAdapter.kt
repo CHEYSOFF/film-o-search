@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.R
-import cheysoff.film_o_search.data.Movie
+import cheysoff.film_o_search.data.api.models.MovieModel
 
-class MovieAdapter(private val context: Context, private val moviesList : ArrayList<Movie>) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(private val context: Context, private val moviesList : ArrayList<MovieModel>) : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
