@@ -1,10 +1,7 @@
 package cheysoff.film_o_search.ui
 
-import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
-import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
 import cheysoff.film_o_search.R
 
 class ChooseBar(
