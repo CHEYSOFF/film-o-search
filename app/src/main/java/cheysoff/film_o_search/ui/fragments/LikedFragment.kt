@@ -2,14 +2,13 @@ package cheysoff.film_o_search.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.api.models.MovieModel
-import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
 
 class LikedFragment(private val context: Context) : Fragment(R.layout.fragment_liked) {
     private lateinit var moviesList: ArrayList<MovieModel>

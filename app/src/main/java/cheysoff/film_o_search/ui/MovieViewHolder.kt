@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.api.models.MovieModel
 import com.bumptech.glide.Glide
-import java.lang.StringBuilder
 
 class MovieViewHolder(private val context: Context, itemView: View) :
     RecyclerView.ViewHolder(itemView) {
@@ -22,6 +21,7 @@ class MovieViewHolder(private val context: Context, itemView: View) :
     private val maxGenre = 100
     private val maxYear = 4
 
+    // TODO: OPEN MOVIE INFO ON CLICK
     fun onBind(movie: MovieModel) {
 //        TODO: CHANGE TO PICASSO
         Glide.with(context).load(movie.posterUrl).into(movieImage)
@@ -31,7 +31,7 @@ class MovieViewHolder(private val context: Context, itemView: View) :
         for (genre in movie.genres) {
             allGenresBuilder.append("$genre, ")
         }
-
+        // TODO: RENAME THEM TO ENGLISH
         val allGenres = allGenresBuilder.substring(0, allGenresBuilder.length - 2)
 
         var actualName = if (movie.nameEn.isNullOrEmpty()) {

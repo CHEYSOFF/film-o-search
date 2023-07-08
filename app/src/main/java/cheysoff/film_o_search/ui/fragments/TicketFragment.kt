@@ -33,6 +33,7 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
 
         val movieListController = object: MovieListController(moviesTicketFragment, context) {
             override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
+                // TODO: IMPLEMENT DATA CHANGE + SET CURRENT DATE BY DEFAULT
                 return mService.getPremiereMovies(2023, "JUNE")
             }
         }

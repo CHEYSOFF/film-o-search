@@ -1,26 +1,12 @@
 package cheysoff.film_o_search
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import cheysoff.film_o_search.data.api.Common
-import cheysoff.film_o_search.data.api.TopMoviesResponse
-import cheysoff.film_o_search.data.api.models.MovieModel
-import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
 import cheysoff.film_o_search.ui.ChooseBar
-import cheysoff.film_o_search.ui.MovieAdapter
 import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.coroutines.EmptyCoroutineContext
 
 class MainActivity : AppCompatActivity() {
 
@@ -77,11 +63,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        enum class screenTypes {
-            home,
-            liked,
-            ticket,
-            profile
+        enum class ScreenTypes {
+            Home,
+            Liked,
+            Ticket,
+            Profile
         }
     }
 

@@ -16,7 +16,7 @@ import retrofit2.Response
 import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class MovieListController(
-    var moviesTopRecyclerView: RecyclerView,
+    moviesTopRecyclerView: RecyclerView,
     val context: Context
 ) {
     private var adapter: MovieAdapter
@@ -50,6 +50,7 @@ abstract class MovieListController(
                             film.nameEn?.let { Log.d("FLM!!!", it) }
                             moviesList.add(film)
                         }
+                        // TODO: THINK OF BETTER WAY
                         adapter.notifyDataSetChanged()
                     }
                 }

@@ -29,7 +29,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:fontFamily="@font/almarai_extrabold"
-            android:text="Now or soon in cinema"
+            android:text="@string/now_or_soon_in_cinema"
             android:textColor="@color/main_orange"
             android:textSize="34sp"
             app:layout_constraintEnd_toEndOf="parent"

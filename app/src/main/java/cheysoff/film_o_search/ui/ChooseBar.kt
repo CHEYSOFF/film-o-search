@@ -2,7 +2,7 @@ package cheysoff.film_o_search.ui
 
 import android.util.Log
 import android.widget.ImageButton
-import cheysoff.film_o_search.MainActivity.Companion.screenTypes
+import cheysoff.film_o_search.MainActivity.Companion.ScreenTypes
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
@@ -21,7 +21,7 @@ class ChooseBar(
     init {
         Log.d("start", "")
         homeButton.setOnClickListener {
-            changeScreen(screenTypes.home)
+            changeScreen(ScreenTypes.Home)
             Log.d("1", "1")
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragment, homeFragment)
@@ -29,11 +29,11 @@ class ChooseBar(
             }
         }
         likedButton.setOnClickListener {
-            changeScreen(screenTypes.liked)
+            changeScreen(ScreenTypes.Liked)
             Log.d("2", "2")
         }
         ticketButton.setOnClickListener {
-            changeScreen(screenTypes.ticket)
+            changeScreen(ScreenTypes.Ticket)
             Log.d("3", "3")
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.flFragment, ticketFragment)
@@ -41,23 +41,23 @@ class ChooseBar(
             }
         }
         profileButton.setOnClickListener {
-            changeScreen(screenTypes.profile)
+            changeScreen(ScreenTypes.Profile)
             Log.d("4", "4")
         }
     }
 
 
-    fun changeScreen(type: screenTypes) {
+    fun changeScreen(type: ScreenTypes) {
         var homeImage = R.drawable.home_button
         var likedImage = R.drawable.liked
         var ticketImage = R.drawable.ticket
         var profileImage = R.drawable.profile
 
         when (type) {
-            screenTypes.home -> homeImage = R.drawable.home_button_selected
-            screenTypes.liked -> likedImage = R.drawable.liked_selected
-            screenTypes.ticket -> ticketImage = R.drawable.ticket_selected
-            screenTypes.profile -> profileImage = R.drawable.profile_selected
+            ScreenTypes.Home -> homeImage = R.drawable.home_button_selected
+            ScreenTypes.Liked -> likedImage = R.drawable.liked_selected
+            ScreenTypes.Ticket -> ticketImage = R.drawable.ticket_selected
+            ScreenTypes.Profile -> profileImage = R.drawable.profile_selected
         }
 
         homeButton.setImageResource(homeImage)
