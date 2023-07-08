@@ -2,6 +2,7 @@ package cheysoff.film_o_search
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +11,7 @@ import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.api.models.MovieModel
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
+import cheysoff.film_o_search.ui.ChooseBar
 import cheysoff.film_o_search.ui.MovieAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -26,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mService: RetrofitServices
 
+    private lateinit var homeButton: ImageButton
+    private lateinit var likedButton: ImageButton
+    private lateinit var ticketButton: ImageButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,8 +45,15 @@ class MainActivity : AppCompatActivity() {
         moviesRecyclerView.layoutManager = LinearLayoutManager(this)
         moviesRecyclerView.adapter = adapter
 
+        homeButton = findViewById(R.id.homeButton)
+        likedButton = findViewById(R.id.likedButton)
+        ticketButton = findViewById(R.id.ticketButton)
+        val bar = ChooseBar(homeButton, likedButton, ticketButton)
+//        bar.onCreate()
+
         val scope = CoroutineScope(EmptyCoroutineContext)
         scope.launch {
+
             val call = mService.getTopMovies()
             Log.d("Proceed call", "")
             call.enqueue(object : Callback<TopMoviesResponse> {
