@@ -14,6 +14,12 @@ interface RetrofitServices {
         @Query("page") page: Int = 1
     ) : Call<TopMoviesResponse>
 
+    @GET("v2.2/films/premieres")
+    fun getPremiereMovies (
+        @Query("year") year: Int,
+        @Query("month") page: String
+    ) : Call<TopMoviesResponse>
+
     @GET("v2.2/films/{id}")
     fun getMovieData (
         @Path("id") id: Int

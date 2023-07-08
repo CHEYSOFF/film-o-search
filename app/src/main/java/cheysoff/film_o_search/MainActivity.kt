@@ -14,6 +14,7 @@ import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
 import cheysoff.film_o_search.ui.ChooseBar
 import cheysoff.film_o_search.ui.MovieAdapter
 import cheysoff.film_o_search.ui.fragments.HomeFragment
+import cheysoff.film_o_search.ui.fragments.TicketFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -28,8 +29,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homeButton: ImageButton
     private lateinit var likedButton: ImageButton
     private lateinit var ticketButton: ImageButton
+    private lateinit var profileButton: ImageButton
 
     private lateinit var homeFragment: HomeFragment
+    private lateinit var ticketFragment: TicketFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         homeFragment = HomeFragment(this)
+        ticketFragment = TicketFragment(this)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, homeFragment)
@@ -46,7 +50,16 @@ class MainActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.homeButton)
         likedButton = findViewById(R.id.likedButton)
         ticketButton = findViewById(R.id.ticketButton)
-        val bar = ChooseBar(homeButton, likedButton, ticketButton)
+        profileButton = findViewById(R.id.profileButton)
+        val bar = ChooseBar(
+            homeButton,
+            likedButton,
+            ticketButton,
+            profileButton,
+            supportFragmentManager,
+            homeFragment,
+            ticketFragment
+        )
 
 
 
@@ -61,6 +74,15 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    companion object {
+        enum class screenTypes {
+            home,
+            liked,
+            ticket,
+            profile
+        }
     }
 
 }

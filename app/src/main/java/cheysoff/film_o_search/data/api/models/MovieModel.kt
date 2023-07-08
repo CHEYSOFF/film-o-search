@@ -13,21 +13,9 @@ data class MovieModel(
     val filmLength: String?,
     val countries: List<CountryModel>,
     val genres: List<GenreModel>,
-    val rating: String,
-    val ratingVoteCount: Int,
+    val rating: String = "0",
+    val ratingVoteCount: Int = 0,
     val posterUrl: String,
     val posterUrlPreview: String,
     val liked: Boolean
-) {
-    init {
-        if (nameEn == null) {
-            nameEn = ""
-        }
-//        if (description.length > 35) {
-//            description = description.substring(0, 35) + "..."
-//        }
-        if (nameEn!!.length > 30) {
-            nameEn = nameEn!!.substring(0, 30) + "..."
-        }
-    }
-}
+)
