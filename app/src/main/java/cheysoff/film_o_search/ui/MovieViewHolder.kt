@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.R
-import cheysoff.film_o_search.data.api.models.MovieModel
+import cheysoff.film_o_search.data.models.MovieModel
 import com.bumptech.glide.Glide
 
 class MovieViewHolder(private val context: Context, itemView: View) :

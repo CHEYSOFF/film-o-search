@@ -5,6 +5,7 @@ import android.widget.ImageButton
 import cheysoff.film_o_search.MainActivity.Companion.ScreenTypes
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.ui.fragments.HomeFragment
+import cheysoff.film_o_search.ui.fragments.LikedFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 class ChooseBar(
@@ -15,7 +16,8 @@ class ChooseBar(
 
     val supportFragmentManager: androidx.fragment.app.FragmentManager,
     val homeFragment: HomeFragment,
-    val ticketFragment: TicketFragment
+    val ticketFragment: TicketFragment,
+    val likedFragment: LikedFragment
 ) {
 
     init {
@@ -31,6 +33,10 @@ class ChooseBar(
         likedButton.setOnClickListener {
             changeScreen(ScreenTypes.Liked)
             Log.d("2", "2")
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, likedFragment)
+                commit()
+            }
         }
         ticketButton.setOnClickListener {
             changeScreen(ScreenTypes.Ticket)

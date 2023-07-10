@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
-import cheysoff.film_o_search.data.api.models.MovieModel
+import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
