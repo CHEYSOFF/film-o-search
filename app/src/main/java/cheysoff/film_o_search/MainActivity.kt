@@ -32,8 +32,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var ticketFragment: TicketFragment
     private lateinit var likedFragment: LikedFragment
 
-    private val viewModel: MovieViewModel by viewModels {
-        MovieItemModelFactory((application as DatabaseApplication).repository)
+
+
+    companion object {
+        lateinit var viewModel: MovieViewModel
+        enum class ScreenTypes {
+            Home,
+            Liked,
+            Ticket,
+            Profile
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +49,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
 
+        viewModel = viewModels<MovieViewModel> {
+            MovieItemModelFactory((application as DatabaseApplication).repository)
+        }.value
+
         homeFragment = HomeFragment(this)
         ticketFragment = TicketFragment(this)
-        likedFragment = LikedFragment(this, viewModel)
+        likedFragment = LikedFragment(this)
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, homeFragment)
@@ -65,10 +77,10 @@ class MainActivity : AppCompatActivity() {
             likedFragment
         )
 
-        val scope = CoroutineScope(EmptyCoroutineContext)
-        scope.launch {
-            viewModel.addMovie(MovieModel(0, "f", "f", "1000", listOf(), listOf(), "0", "0", true))
-        }
+//        val scope = CoroutineScope(EmptyCoroutineContext)
+//        scope.launch {
+//            viewModel.addMovie(MovieModel(0, "f", "f", "1000", listOf(), listOf(), "0", "0", true))
+//        }
 
 
 
@@ -85,13 +97,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    companion object {
-        enum class ScreenTypes {
-            Home,
-            Liked,
-            Ticket,
-            Profile
-        }
-    }
+
 
 }

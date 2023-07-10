@@ -2,12 +2,16 @@ package cheysoff.film_o_search.ui
 
 import android.content.Context
 import android.util.Log
+import android.view.View
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
+import cheysoff.film_o_search.data.database.MovieViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Call

@@ -1,13 +1,21 @@
 package cheysoff.film_o_search.ui
 
 import android.content.Context
+import android.util.Log
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import cheysoff.film_o_search.MainActivity.Companion.viewModel
 import cheysoff.film_o_search.R
+import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.data.models.MovieModel
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieViewHolder(private val context: Context, itemView: View) :
     RecyclerView.ViewHolder(itemView) {
@@ -15,7 +23,7 @@ class MovieViewHolder(private val context: Context, itemView: View) :
     private val movieName: TextView = itemView.findViewById(R.id.movie_name)
     private val movieGenre: TextView = itemView.findViewById(R.id.movie_genre)
     private val movieYear: TextView = itemView.findViewById(R.id.movie_year)
-    private val movieLike: ImageView = itemView.findViewById(R.id.movie_like)
+    private val movieLike: ImageButton = itemView.findViewById(R.id.movie_like)
 
     private val maxName = 50
     private val maxGenre = 100
@@ -39,16 +47,30 @@ class MovieViewHolder(private val context: Context, itemView: View) :
         } else {
             movie.nameEn
         }
+        Log.d("name", actualName.orEmpty())
+
 
         movieName.text = trim(actualName, maxName)
         movieGenre.text = trim(allGenres, maxGenre)
         movieYear.text = trim(movie.year, maxYear)
-        movieLike.setImageResource(R.drawable.liked_selected)
-        movieLike.visibility = if (movie.liked) {
-            View.VISIBLE
-        } else {
-            View.GONE
+        movieLike.setImageResource(
+            if (movie.liked) {
+                R.drawable.liked_selected
+            } else {
+                R.drawable.liked_ghost
+            }
+        )
+        movieLike.setOnClickListener {
+            movie.liked = !movie.liked
+            if (movie.liked) {
+                movieLike.setImageResource(R.drawable.liked_selected)
+                viewModel.addMovie(movie)
+            } else {
+                movieLike.setImageResource(R.drawable.liked_ghost)
+                viewModel.deleteMovie(movie.filmId)
+            }
         }
+
     }
 
     fun trim(string: String?, amount: Int): String {

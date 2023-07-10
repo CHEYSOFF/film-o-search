@@ -11,12 +11,14 @@ class MoviesRepository(private val movieDao: MovieDao) {
     fun addMovie(movie: MovieModel) {
         Log.d("3", "added")
         movieDao.insert(movie)
+        Log.d("id:", movie.filmId.toString())
     }
 
-//    fun getAllMovies(): LiveData<List<MovieModel>> {
-//        readAllData = movieDao.getAll()
-//        val tm = readAllData.value
-//        Log.d("wad", tm.orEmpty().size.toString())
-//        return readAllData
-//    }
+    fun deleteMovie(id: Int) {
+        movieDao.delete(id)
+    }
+
+    fun isLiked(id: Int): Boolean{
+        return movieDao.isLiked(id)
+    }
 }

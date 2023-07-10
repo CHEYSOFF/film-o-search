@@ -25,20 +25,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import kotlin.coroutines.EmptyCoroutineContext
+import cheysoff.film_o_search.MainActivity.Companion.viewModel
+
+
 
 class LikedFragment(
-    private val context: Context,
-    private val viewModel: MovieViewModel
+    private val context: Context
 ) : Fragment(R.layout.fragment_liked) {
     private var moviesList: ArrayList<MovieModel> = arrayListOf()
     private lateinit var moviesLikedRecyclerView: RecyclerView
 
     private var adapter: MovieAdapter = MovieAdapter(moviesList)
-
-
-    init {
-
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +57,8 @@ class LikedFragment(
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 val tmp = viewModel.readAllData
-                tmp.observe(viewLifecycleOwner, Observer { user -> adapter.setData(user) })
+                tmp.observe(viewLifecycleOwner, Observer { movie -> adapter.setData(movie) })
+
                 Log.d(tmp.value.orEmpty().size.toString(), "yyy")
                 moviesList.clear()
                 if (tmp.value != null) {

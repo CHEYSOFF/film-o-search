@@ -18,5 +18,5 @@ data class MovieModel(
     @TypeConverters(GenreModelConverter::class) val genres: List<GenreModel>,
     @ColumnInfo(name = "rating") val rating: String = "0",
     @ColumnInfo(name = "posterUrl") val posterUrl: String,
-    @ColumnInfo(name = "liked") val liked: Boolean
+    @ColumnInfo(name = "liked") var liked: Boolean
 )

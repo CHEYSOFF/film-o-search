@@ -18,6 +18,6 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(movie: MovieModel)
 
-    @Query("SELECT * FROM movies WHERE filmId = :id")
+    @Query("SELECT EXISTS(SELECT * FROM movies WHERE filmId = :id)")
     fun isLiked(id: Int): Boolean
 }

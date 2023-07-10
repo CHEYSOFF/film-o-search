@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cheysoff.film_o_search.data.models.MovieModel
@@ -22,12 +23,18 @@ class MovieViewModel(private val repository: MoviesRepository) : ViewModel() {
         }
     }
 
-//    fun getAllMovies(): LiveData<List<MovieModel>> {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.getAllMovies()
-//            readAllData = repository.readAllData
-//        }
-//        return readAllData
-//    }
+    fun deleteMovie(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteMovie(id)
+        }
+    }
+
+    fun isLiked(id: Int): MutableLiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+        viewModelScope.launch(Dispatchers.IO) {
+            result.postValue(repository.isLiked(id))
+        }
+        return result
+    }
 
 }
