@@ -6,16 +6,11 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.MainActivity.Companion.viewModel
 import cheysoff.film_o_search.R
-import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.data.models.MovieModel
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MovieViewHolder(private val context: Context, itemView: View) :
     RecyclerView.ViewHolder(itemView) {
@@ -35,6 +30,11 @@ class MovieViewHolder(private val context: Context, itemView: View) :
         Glide.with(context).load(movie.posterUrl).into(movieImage)
 //        TODO: Check URL
 
+        if (movie.filmId == 0) {
+            movie.filmId = movie.kinopoiskId
+            Log.d(movie.filmId.toString(), movie.kinopoiskId.toString())
+        }
+
         val allGenresBuilder = StringBuilder()
         for (genre in movie.genres) {
             allGenresBuilder.append("$genre, ")
@@ -49,6 +49,7 @@ class MovieViewHolder(private val context: Context, itemView: View) :
         }
         Log.d("name", actualName.orEmpty())
 
+        movie.rating = movie.rating.orEmpty()
 
         movieName.text = trim(actualName, maxName)
         movieGenre.text = trim(allGenres, maxGenre)

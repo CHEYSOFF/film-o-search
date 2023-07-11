@@ -52,6 +52,8 @@ abstract class MovieListController(
                         moviesList.clear()
                         for (film in movies) {
                             film.nameEn?.let { Log.d("FLM!!!", it) }
+                            Log.d("id", film.filmId.toString())
+                            Log.d("kinopoiskId", film.kinopoiskId.toString())
                             moviesList.add(film)
                         }
                         // TODO: THINK OF BETTER WAY
