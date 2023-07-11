@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.MainActivity.Companion.viewModel
@@ -24,6 +25,7 @@ class MovieViewHolder(
     private val movieGenre: TextView = itemView.findViewById(R.id.movie_genre)
     private val movieYear: TextView = itemView.findViewById(R.id.movie_year)
     private val movieLike: ImageButton = itemView.findViewById(R.id.movie_like)
+    private val movieRating: TextView = itemView.findViewById(R.id.movie_rating)
 
     private val maxName = 50
     private val maxGenre = 100
@@ -82,6 +84,26 @@ class MovieViewHolder(
                 viewModel.deleteMovie(movie.filmId)
             }
         }
+
+//        TODO: FIX RATING BUG(In ticket fragment)
+        movie.rating = movie.rating.orEmpty()
+        if (movie.rating.orEmpty().endsWith("%") || movie.rating!!.isEmpty()) {
+//            movie.rating = (movie.rating!!.substring(0, movie.rating!!.length - 1).toFloat() / 10).toString()
+            movie.rating = "-"
+        }
+        movieRating.text = movie.rating
+        Log.d("rat", movie.rating!!)
+        movieRating.setTextColor(
+            if (movie.rating == "-") {
+                ContextCompat.getColor(context, R.color.black)
+            } else if (movie.rating!!.toFloat() < 6) {
+                ContextCompat.getColor(context, R.color.red)
+            } else if (movie.rating!!.toFloat() < 8) {
+                ContextCompat.getColor(context, R.color.orange)
+            } else {
+                ContextCompat.getColor(context, R.color.green)
+            }
+        )
 
     }
 

@@ -18,8 +18,8 @@ data class MovieModel(
     @ColumnInfo(name = "year") val year: String?,
     @TypeConverters(CountryModelConverter::class) val countries: List<CountryModel>,
     @TypeConverters(GenreModelConverter::class) val genres: List<GenreModel>,
-    @ColumnInfo(name = "rating") var rating: String,
-    @ColumnInfo(name = "posterUrl") val posterUrl: String,
+    @ColumnInfo(name = "rating") var rating: String?,
+    @ColumnInfo(name = "posterUrl") val posterUrl: String?,
     @ColumnInfo(name = "liked") var liked: Boolean
 ) {
     constructor(filmId: Int, nameRu: String?, nameEn: String?, year: String?, countries: List<CountryModel>, genres: List<GenreModel>, rating: String, posterUrl: String, liked: Boolean)
