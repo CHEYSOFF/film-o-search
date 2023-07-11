@@ -21,7 +21,8 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class MovieListController(
     moviesTopRecyclerView: RecyclerView,
-    val context: Context
+    val context: Context,
+    private val viewLifecycleOwner: LifecycleOwner
 ) {
     private var adapter: MovieAdapter
     private var moviesList: ArrayList<MovieModel> = arrayListOf()
@@ -29,7 +30,7 @@ abstract class MovieListController(
 
 
     init {
-        adapter = MovieAdapter(moviesList)
+        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
         moviesTopRecyclerView.layoutManager = LinearLayoutManager(context)
         moviesTopRecyclerView.adapter = adapter
     }

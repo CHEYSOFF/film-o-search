@@ -12,7 +12,10 @@ import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.data.models.MovieModel
 
-class MovieAdapter(private var moviesList : ArrayList<MovieModel>) : RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(
+    private var moviesList: ArrayList<MovieModel>,
+    private val viewLifecycleOwner: LifecycleOwner
+) : RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +25,8 @@ class MovieAdapter(private var moviesList : ArrayList<MovieModel>) : RecyclerVie
                 R.layout.movie_bar,
                 parent,
                 false
-            )
+            ),
+            viewLifecycleOwner
         )
 
     }
@@ -40,7 +44,7 @@ class MovieAdapter(private var moviesList : ArrayList<MovieModel>) : RecyclerVie
         holder.onBind(movie)
     }
 
-    fun setData(movies: List<MovieModel>){
+    fun setData(movies: List<MovieModel>) {
         this.moviesList = movies as ArrayList<MovieModel>
         notifyDataSetChanged()
     }

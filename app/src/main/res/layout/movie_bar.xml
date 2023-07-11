@@ -147,7 +147,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline9"
             app:layout_constraintStart_toStartOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/guideline7"
-            app:srcCompat="@drawable/liked_selected" />
+            app:srcCompat="@drawable/liked_ghost" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

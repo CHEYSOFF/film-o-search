@@ -6,13 +6,18 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.MainActivity.Companion.viewModel
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.models.MovieModel
 import com.bumptech.glide.Glide
 
-class MovieViewHolder(private val context: Context, itemView: View) :
+class MovieViewHolder(
+    private val context: Context,
+    itemView: View,
+    private val viewLifecycleOwner: LifecycleOwner
+) :
     RecyclerView.ViewHolder(itemView) {
     private val movieImage: ImageView = itemView.findViewById(R.id.movie_image)
     private val movieName: TextView = itemView.findViewById(R.id.movie_name)
@@ -50,17 +55,23 @@ class MovieViewHolder(private val context: Context, itemView: View) :
         Log.d("name", actualName.orEmpty())
 
         movie.rating = movie.rating.orEmpty()
+        val tmp = viewModel.isLiked(movie.filmId)
+        tmp.observe(viewLifecycleOwner) { liked ->
+            movie.liked = (liked == true)
+            movieLike.setImageResource(
+                if (movie.liked) {
+                    R.drawable.liked_selected
+                } else {
+                    R.drawable.liked_ghost
+                }
+            )
+        }
+
 
         movieName.text = trim(actualName, maxName)
         movieGenre.text = trim(allGenres, maxGenre)
         movieYear.text = trim(movie.year, maxYear)
-        movieLike.setImageResource(
-            if (movie.liked) {
-                R.drawable.liked_selected
-            } else {
-                R.drawable.liked_ghost
-            }
-        )
+
         movieLike.setOnClickListener {
             movie.liked = !movie.liked
             if (movie.liked) {

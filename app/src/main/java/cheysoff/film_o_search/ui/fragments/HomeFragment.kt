@@ -15,11 +15,9 @@ import cheysoff.film_o_search.ui.MovieListController
 import retrofit2.Call
 
 
-class HomeFragment(private val context: Context) :
-    Fragment(R.layout.fragment_home) {
+class HomeFragment(private val context: Context) : Fragment(R.layout.fragment_home) {
     private lateinit var moviesList: ArrayList<MovieModel>
     private lateinit var moviesTopRecyclerView: RecyclerView
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,21 +26,26 @@ class HomeFragment(private val context: Context) :
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         val layout = inflater.inflate(R.layout.fragment_home, container, false)
         moviesTopRecyclerView = layout.findViewById(R.id.moviesTopRecyclerView)
 
-        val movieListController = object: MovieListController(moviesTopRecyclerView, context) {
-            override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
-                return mService.getTopMovies()
-            }
-        }
-        movieListController.showFilms()
+
 
         return layout
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val movieListController =
+            object : MovieListController(moviesTopRecyclerView, context, viewLifecycleOwner) {
+                override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
+                    return mService.getTopMovies()
+                }
+            }
+        movieListController.showFilms()
     }
 
 }

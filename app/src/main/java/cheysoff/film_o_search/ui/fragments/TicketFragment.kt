@@ -31,15 +31,19 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
         val layout = inflater.inflate(R.layout.fragment_ticket, container, false)
         moviesTicketFragment = layout.findViewById(R.id.moviesTicketRecyclerView)
 
-        val movieListController = object: MovieListController(moviesTicketFragment, context) {
-            override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
-                // TODO: IMPLEMENT DATA CHANGE + SET CURRENT DATE BY DEFAULT
-                return mService.getPremiereMovies(2023, "JUNE")
-            }
-        }
-        movieListController.showFilms()
-
         return layout
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val movieListController =
+            object : MovieListController(moviesTicketFragment, context, viewLifecycleOwner) {
+                override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
+                    // TODO: IMPLEMENT DATA CHANGE + SET CURRENT DATE BY DEFAULT
+                    return mService.getPremiereMovies(2023, "JUNE")
+                }
+            }
+        movieListController.showFilms()
     }
 
 }

@@ -35,7 +35,7 @@ class LikedFragment(
     private var moviesList: ArrayList<MovieModel> = arrayListOf()
     private lateinit var moviesLikedRecyclerView: RecyclerView
 
-    private var adapter: MovieAdapter = MovieAdapter(moviesList)
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,13 +51,20 @@ class LikedFragment(
 
         moviesLikedRecyclerView = layout.findViewById(R.id.moviesLikedRecyclerView)
         moviesLikedRecyclerView.layoutManager = LinearLayoutManager(context)
+
+
+        return layout
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
         moviesLikedRecyclerView.adapter = adapter
 
-
+        super.onViewCreated(view, savedInstanceState)
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
                 val tmp = viewModel.readAllData
-                tmp.observe(viewLifecycleOwner, Observer { movie -> adapter.setData(movie) })
+                tmp.observe(viewLifecycleOwner) { movie -> adapter.setData(movie) }
 
                 Log.d(tmp.value.orEmpty().size.toString(), "yyy")
                 moviesList.clear()
@@ -68,9 +75,6 @@ class LikedFragment(
                 }
             }
         }
-
-
-        return layout
     }
 
 }
