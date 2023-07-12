@@ -51,8 +51,15 @@ class LikedFragment(
         moviesLikedRecyclerView.adapter = adapter
 
         super.onViewCreated(view, savedInstanceState)
+//        TODO: FIX SHIMMERS
+//        activity?.runOnUiThread {
+//            getView()?.visibility = View.GONE
+//            MainActivity.shimmerContainer.startShimmer()
+//        }
         lifecycleScope.launch {
+
             withContext(Dispatchers.Main) {
+
                 val tmp = viewModel.readAllData
                 tmp.observe(viewLifecycleOwner) { movie -> adapter.setData(movie) }
 
@@ -64,6 +71,12 @@ class LikedFragment(
                     }
                 }
             }
+//            activity?.runOnUiThread {
+//                MainActivity.shimmerContainer.stopShimmer()
+//                MainActivity.shimmerContainer.visibility = View.GONE
+//                getView()?.visibility = View.VISIBLE
+//            }
+
         }
     }
 

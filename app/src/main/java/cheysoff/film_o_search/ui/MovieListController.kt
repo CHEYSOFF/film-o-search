@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
+import cheysoff.film_o_search.data.models.CountryModel
+import cheysoff.film_o_search.data.models.GenreModel
 import cheysoff.film_o_search.data.models.MovieModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -30,6 +32,7 @@ abstract class MovieListController(
         adapter = MovieAdapter(moviesList, viewLifecycleOwner)
         moviesTopRecyclerView.layoutManager = LinearLayoutManager(context)
         moviesTopRecyclerView.adapter = adapter
+
     }
 
     open fun showFilms() {
@@ -45,6 +48,7 @@ abstract class MovieListController(
                 ) {
                     if (response.code() == 200) {
                         val moviesResponse = response.body()!!
+//                        TODO: make it exception free
                         val movies = (moviesResponse.items ?: moviesResponse.films)!!
                         Log.d("Has films", movies.size.toString())
                         moviesList.clear()
@@ -54,8 +58,12 @@ abstract class MovieListController(
                             Log.d("kinopoiskId", film.kinopoiskId.toString())
                             moviesList.add(film)
                         }
+                        Log.d("size", moviesList.size.toString())
                         // TODO: THINK OF BETTER WAY
                         adapter.notifyDataSetChanged()
+                    }
+                    else {
+                        Log.d("error", response.code().toString())
                     }
                 }
 

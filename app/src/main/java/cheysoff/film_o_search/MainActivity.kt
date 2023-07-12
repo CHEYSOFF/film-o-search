@@ -1,6 +1,7 @@
 package cheysoff.film_o_search
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.SearchView
 import androidx.activity.viewModels
@@ -9,9 +10,12 @@ import cheysoff.film_o_search.data.database.DatabaseApplication
 import cheysoff.film_o_search.data.database.MovieItemModelFactory
 import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.ui.ChooseBar
+import cheysoff.film_o_search.ui.SearchBar
 import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.LikedFragment
+import cheysoff.film_o_search.ui.fragments.SearchFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
+import com.facebook.shimmer.ShimmerFrameLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,11 +29,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homeFragment: HomeFragment
     private lateinit var ticketFragment: TicketFragment
     private lateinit var likedFragment: LikedFragment
-
+    private lateinit var searchFragment: SearchFragment
 
 
     companion object {
         lateinit var viewModel: MovieViewModel
+        lateinit var shimmerContainer: ShimmerFrameLayout
+        lateinit var chooseBar: ChooseBar
         enum class ScreenTypes {
             Home,
             Liked,
@@ -50,17 +56,28 @@ class MainActivity : AppCompatActivity() {
         homeFragment = HomeFragment(this)
         ticketFragment = TicketFragment(this)
         likedFragment = LikedFragment(this)
+        searchFragment = SearchFragment(this)
+
+        homeButton = findViewById(R.id.homeButton)
+        likedButton = findViewById(R.id.likedButton)
+        ticketButton = findViewById(R.id.ticketButton)
+        profileButton = findViewById(R.id.profileButton)
+
+        searchBar = findViewById(R.id.search_bar_id)
+
+        //        TODO: FIX SHIMMERS
+        shimmerContainer = findViewById<View>(R.id.shimmer_view_container) as ShimmerFrameLayout
+        shimmerContainer.visibility = View.GONE
+//        shimmerContainer.startShimmer();
 
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.flFragment, homeFragment)
             commit()
         }
 
-        homeButton = findViewById(R.id.homeButton)
-        likedButton = findViewById(R.id.likedButton)
-        ticketButton = findViewById(R.id.ticketButton)
-        profileButton = findViewById(R.id.profileButton)
-        val bar = ChooseBar(
+
+
+        chooseBar = ChooseBar(
             homeButton,
             likedButton,
             ticketButton,
@@ -68,29 +85,12 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager,
             homeFragment,
             ticketFragment,
-            likedFragment
+            likedFragment,
+            searchFragment
         )
+        SearchBar(this, searchFragment, searchBar)
 
-//        val scope = CoroutineScope(EmptyCoroutineContext)
-//        scope.launch {
-//            viewModel.addMovie(MovieModel(0, "f", "f", "1000", listOf(), listOf(), "0", "0", true))
-//        }
-
-
-
-        searchBar = findViewById(R.id.search_bar_id)
-        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
 
     }
-
-
 
 }

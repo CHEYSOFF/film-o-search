@@ -6,6 +6,7 @@ import cheysoff.film_o_search.MainActivity.Companion.ScreenTypes
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.LikedFragment
+import cheysoff.film_o_search.ui.fragments.SearchFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 class ChooseBar(
@@ -17,7 +18,9 @@ class ChooseBar(
     private val supportFragmentManager: androidx.fragment.app.FragmentManager,
     private val homeFragment: HomeFragment,
     private val ticketFragment: TicketFragment,
-    private val likedFragment: LikedFragment
+    private val likedFragment: LikedFragment,
+    private val searchFragment: SearchFragment
+
 ) {
 
     init {
@@ -25,26 +28,15 @@ class ChooseBar(
         homeButton.setOnClickListener {
             changeScreen(ScreenTypes.Home)
             Log.d("1", "1")
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, homeFragment)
-                commit()
-            }
+
         }
         likedButton.setOnClickListener {
             changeScreen(ScreenTypes.Liked)
             Log.d("2", "2")
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, likedFragment)
-                commit()
-            }
         }
         ticketButton.setOnClickListener {
             changeScreen(ScreenTypes.Ticket)
             Log.d("3", "3")
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.flFragment, ticketFragment)
-                commit()
-            }
         }
         profileButton.setOnClickListener {
             changeScreen(ScreenTypes.Profile)
@@ -53,17 +45,39 @@ class ChooseBar(
     }
 
 
-    private fun changeScreen(type: ScreenTypes) {
+    fun changeScreen(type: ScreenTypes) {
         var homeImage = R.drawable.home_button
         var likedImage = R.drawable.liked
         var ticketImage = R.drawable.ticket
         var profileImage = R.drawable.profile
 
+        val fragment: androidx.fragment.app.Fragment
+//        TODO: CHANGE PROFILE TO SEARCH
         when (type) {
-            ScreenTypes.Home -> homeImage = R.drawable.home_button_selected
-            ScreenTypes.Liked -> likedImage = R.drawable.liked_selected
-            ScreenTypes.Ticket -> ticketImage = R.drawable.ticket_selected
-            ScreenTypes.Profile -> profileImage = R.drawable.profile_selected
+            ScreenTypes.Home -> {
+                homeImage = R.drawable.home_button_selected
+                fragment = homeFragment
+            }
+
+            ScreenTypes.Liked -> {
+                likedImage = R.drawable.liked_selected
+                fragment = likedFragment
+            }
+
+            ScreenTypes.Ticket -> {
+                ticketImage = R.drawable.ticket_selected
+                fragment = ticketFragment
+            }
+
+            ScreenTypes.Profile -> {
+                profileImage = R.drawable.profile_selected
+                fragment = searchFragment
+            }
+        }
+
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, fragment)
+            commit()
         }
 
         homeButton.setImageResource(homeImage)

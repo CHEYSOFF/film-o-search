@@ -134,15 +134,21 @@ class MovieViewHolder(
 
     private fun setUpPoster(movie: MovieModel) {
         //        TODO: CHANGE TO PICASSO
-        //        TODO: Check URL
-        Glide.with(context).load(movie.posterUrl).into(movieImage)
+        if (movie.posterUrl.isNullOrEmpty()) {
+            movieImage.setImageResource(R.drawable.no_image)
+        } else {
+            Glide.with(context).load(movie.posterUrl).into(movieImage)
+        }
+
     }
 
     private fun changeRatingColorAndText(movie: MovieModel) {
-        movie.rating = movie.rating.orEmpty()
-        if (movie.rating.orEmpty().endsWith("%") || movie.rating!!.isEmpty()) {
+        if (movie.rating!!.toFloatOrNull() == null || movie.rating.orEmpty()
+                .endsWith("%") || movie.rating!!.isEmpty()
+        ) {
             movie.rating = defaultRating
         }
+
         movieRating.text = movie.rating
         movieRating.setTextColor(
             if (movie.rating == defaultRating) {

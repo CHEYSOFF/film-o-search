@@ -11,7 +11,7 @@ interface RetrofitServices {
 
     @GET("v2.2/films/top")
     fun getTopMovies (
-        @Query("type") type: String = "TOP_100_POPULAR_FILMS",
+        @Query("type") type: String = "TOP_250_BEST_FILMS",
         @Query("page") page: Int = 1
     ) : Call<TopMoviesResponse>
 
@@ -25,4 +25,10 @@ interface RetrofitServices {
     fun getMovieData (
         @Path("id") id: Int
     ) : Call<MovieModel>
+
+    @GET("v2.1/films/search-by-keyword")
+    fun getMoviesByKeyword (
+        @Query("keyword") keyword: String,
+        @Query("page") page: Int = 1
+    ) : Call<TopMoviesResponse>
 }

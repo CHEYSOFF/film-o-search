@@ -28,6 +28,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_bar" />
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/choose_bar_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        tools:shimmer_auto_start="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@+id/shimmer_view_container">
+
+            <include layout="@layout/movie_bar"/>
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+            <include layout="@layout/movie_bar" />
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     <include
         android:id="@+id/choose_bar_id"
         layout="@layout/choose_bar"

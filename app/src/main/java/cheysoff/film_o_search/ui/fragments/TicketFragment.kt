@@ -2,22 +2,23 @@ package cheysoff.film_o_search.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.api.TopMoviesResponse
-import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
+import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.ui.MovieListController
 import retrofit2.Call
 
 class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_ticket) {
 
     private lateinit var moviesList: ArrayList<MovieModel>
-    private lateinit var moviesTicketFragment: RecyclerView
+    private lateinit var moviesTicketRecyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,8 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
         savedInstanceState: Bundle?
     ): View? {
         val layout = inflater.inflate(R.layout.fragment_ticket, container, false)
-        moviesTicketFragment = layout.findViewById(R.id.moviesTicketRecyclerView)
+        moviesTicketRecyclerView = layout.findViewById(R.id.moviesTicketRecyclerView)
+        moviesTicketRecyclerView.layoutManager = LinearLayoutManager(context)
 
         return layout
     }
@@ -37,7 +39,7 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieListController =
-            object : MovieListController(moviesTicketFragment, context, viewLifecycleOwner) {
+            object : MovieListController(moviesTicketRecyclerView, context, viewLifecycleOwner) {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
                     // TODO: IMPLEMENT DATA CHANGE + SET CURRENT DATE BY DEFAULT
                     return mService.getPremiereMovies(2023, "JUNE")

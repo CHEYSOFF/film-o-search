@@ -1,5 +1,6 @@
 package cheysoff.film_o_search.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -30,6 +31,7 @@ class MovieAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = moviesList[position]
+        Log.d("movie catched", movie.filmId.toString())
 //        val tmp = viewModel.isLiked(movie.filmId)
 //        binding.lifecycleOwner?.let {
 //            tmp.observe(

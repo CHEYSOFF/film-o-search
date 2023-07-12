@@ -4,6 +4,7 @@ import cheysoff.film_o_search.data.models.MovieModel
 
 data class TopMoviesResponse (
     val pagesCount: Int,
+    val keyword: String,
     val type: Int,
     val films: List<MovieModel>?,
     val items: List<MovieModel>?
