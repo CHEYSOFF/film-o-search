@@ -1,6 +1,7 @@
 package cheysoff.film_o_search.data.api.retrofit
 
 import cheysoff.film_o_search.data.api.TopMoviesResponse
+import cheysoff.film_o_search.data.models.MovieModel
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -23,5 +24,5 @@ interface RetrofitServices {
     @GET("v2.2/films/{id}")
     fun getMovieData (
         @Path("id") id: Int
-    ) : Call<TopMoviesResponse>
+    ) : Call<MovieModel>
 }

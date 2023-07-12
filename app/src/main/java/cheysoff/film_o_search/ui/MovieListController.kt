@@ -2,16 +2,13 @@ package cheysoff.film_o_search.ui
 
 import android.content.Context
 import android.util.Log
-import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
-import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
-import cheysoff.film_o_search.data.database.MovieViewModel
+import cheysoff.film_o_search.data.models.MovieModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -22,7 +19,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 abstract class MovieListController(
     moviesTopRecyclerView: RecyclerView,
     val context: Context,
-    private val viewLifecycleOwner: LifecycleOwner
+    viewLifecycleOwner: LifecycleOwner
 ) {
     private var adapter: MovieAdapter
     private var moviesList: ArrayList<MovieModel> = arrayListOf()
@@ -63,7 +60,7 @@ abstract class MovieListController(
                 }
 
                 override fun onFailure(call: Call<TopMoviesResponse>, t: Throwable) {
-                    Log.d("hell", "hell")
+                    Log.d("Error while requesting list of films", t.message.orEmpty())
                 }
             })
         }

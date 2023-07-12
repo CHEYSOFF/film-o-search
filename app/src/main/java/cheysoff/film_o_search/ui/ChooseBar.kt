@@ -9,15 +9,15 @@ import cheysoff.film_o_search.ui.fragments.LikedFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 class ChooseBar(
-    val homeButton: ImageButton,
-    val likedButton: ImageButton,
-    val ticketButton: ImageButton,
-    val profileButton: ImageButton,
+    private val homeButton: ImageButton,
+    private val likedButton: ImageButton,
+    private val ticketButton: ImageButton,
+    private val profileButton: ImageButton,
 
-    val supportFragmentManager: androidx.fragment.app.FragmentManager,
-    val homeFragment: HomeFragment,
-    val ticketFragment: TicketFragment,
-    val likedFragment: LikedFragment
+    private val supportFragmentManager: androidx.fragment.app.FragmentManager,
+    private val homeFragment: HomeFragment,
+    private val ticketFragment: TicketFragment,
+    private val likedFragment: LikedFragment
 ) {
 
     init {
@@ -53,7 +53,7 @@ class ChooseBar(
     }
 
 
-    fun changeScreen(type: ScreenTypes) {
+    private fun changeScreen(type: ScreenTypes) {
         var homeImage = R.drawable.home_button
         var likedImage = R.drawable.liked
         var ticketImage = R.drawable.ticket

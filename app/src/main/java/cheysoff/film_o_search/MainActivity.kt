@@ -1,23 +1,17 @@
 package cheysoff.film_o_search
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import android.widget.SearchView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import cheysoff.film_o_search.data.database.MovieViewModel
-import cheysoff.film_o_search.data.models.MovieModel
-import cheysoff.film_o_search.ui.ChooseBar
-import cheysoff.film_o_search.ui.fragments.HomeFragment
-import cheysoff.film_o_search.ui.fragments.TicketFragment
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import cheysoff.film_o_search.data.database.DatabaseApplication
 import cheysoff.film_o_search.data.database.MovieItemModelFactory
+import cheysoff.film_o_search.data.database.MovieViewModel
+import cheysoff.film_o_search.ui.ChooseBar
+import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.LikedFragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import kotlin.coroutines.EmptyCoroutineContext
+import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 class MainActivity : AppCompatActivity() {
 
