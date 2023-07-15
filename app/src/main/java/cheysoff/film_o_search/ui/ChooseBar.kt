@@ -13,7 +13,7 @@ class ChooseBar(
     private val homeButton: ImageButton,
     private val likedButton: ImageButton,
     private val ticketButton: ImageButton,
-    private val profileButton: ImageButton,
+    private val searchButton: ImageButton,
 
     private val supportFragmentManager: androidx.fragment.app.FragmentManager,
     private val homeFragment: HomeFragment,
@@ -38,7 +38,7 @@ class ChooseBar(
             changeScreen(ScreenTypes.Ticket)
             Log.d("3", "3")
         }
-        profileButton.setOnClickListener {
+        searchButton.setOnClickListener {
             changeScreen(ScreenTypes.Profile)
             Log.d("4", "4")
         }
@@ -49,7 +49,7 @@ class ChooseBar(
         var homeImage = R.drawable.home_button
         var likedImage = R.drawable.liked
         var ticketImage = R.drawable.ticket
-        var profileImage = R.drawable.profile
+        var profileImage = R.drawable.search
 
         val fragment: androidx.fragment.app.Fragment
 //        TODO: CHANGE PROFILE TO SEARCH
@@ -70,7 +70,7 @@ class ChooseBar(
             }
 
             ScreenTypes.Profile -> {
-                profileImage = R.drawable.profile_selected
+                profileImage = R.drawable.search_selected
                 fragment = searchFragment
             }
         }
@@ -83,6 +83,6 @@ class ChooseBar(
         homeButton.setImageResource(homeImage)
         likedButton.setImageResource(likedImage)
         ticketButton.setImageResource(ticketImage)
-        profileButton.setImageResource(profileImage)
+        searchButton.setImageResource(profileImage)
     }
 }

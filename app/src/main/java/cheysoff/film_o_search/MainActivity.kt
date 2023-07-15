@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var homeButton: ImageButton
     private lateinit var likedButton: ImageButton
     private lateinit var ticketButton: ImageButton
-    private lateinit var profileButton: ImageButton
+    private lateinit var searchButton: ImageButton
 
     private lateinit var homeFragment: HomeFragment
     private lateinit var ticketFragment: TicketFragment
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         homeButton = findViewById(R.id.homeButton)
         likedButton = findViewById(R.id.likedButton)
         ticketButton = findViewById(R.id.ticketButton)
-        profileButton = findViewById(R.id.profileButton)
+        searchButton = findViewById(R.id.searchButton)
 
         searchBar = findViewById(R.id.search_bar_id)
 
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             homeButton,
             likedButton,
             ticketButton,
-            profileButton,
+            searchButton,
             supportFragmentManager,
             homeFragment,
             ticketFragment,
