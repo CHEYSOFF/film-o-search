@@ -2,6 +2,7 @@ package cheysoff.film_o_search.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
 import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.ui.MovieListController
 import retrofit2.Call
+import java.text.DateFormatSymbols
+import java.util.Calendar
 
 class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_ticket) {
 
@@ -41,8 +44,11 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
         val movieListController =
             object : MovieListController(moviesTicketRecyclerView, context, viewLifecycleOwner) {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
-                    // TODO: IMPLEMENT DATA CHANGE + SET CURRENT DATE BY DEFAULT
-                    return mService.getPremiereMovies(2023, "JUNE")
+                    val calendar = Calendar.getInstance()
+                    val currentMonth = DateFormatSymbols().months[calendar.get(Calendar.MONTH)].uppercase()
+                    val currentYear = calendar.get(Calendar.YEAR)
+                    Log.d("M + Y", "$currentMonth $currentYear " + calendar.get(Calendar.MONTH).toString())
+                    return mService.getPremiereMovies(currentYear, currentMonth)
                 }
             }
         movieListController.showFilms()
