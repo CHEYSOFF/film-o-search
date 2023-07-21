@@ -1,6 +1,5 @@
 package cheysoff.film_o_search.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import cheysoff.film_o_search.ui.MovieListController
 import retrofit2.Call
 
 
-class HomeFragment(private val context: Context) : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var moviesTopRecyclerView: RecyclerView
 
 
@@ -38,7 +37,7 @@ class HomeFragment(private val context: Context) : Fragment(R.layout.fragment_ho
         super.onViewCreated(view, savedInstanceState)
 
         val movieListController =
-            object : MovieListController(moviesTopRecyclerView, context, viewLifecycleOwner) {
+            object : MovieListController(moviesTopRecyclerView, viewLifecycleOwner) {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
                     //        TODO: FIX SHIMMERS
 

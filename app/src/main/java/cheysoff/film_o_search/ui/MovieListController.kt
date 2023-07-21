@@ -1,15 +1,13 @@
 package cheysoff.film_o_search.ui
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cheysoff.film_o_search.MainActivity.Companion.memoryLeak
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
-import cheysoff.film_o_search.data.models.CountryModel
-import cheysoff.film_o_search.data.models.GenreModel
 import cheysoff.film_o_search.data.models.MovieModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -20,7 +18,6 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class MovieListController(
     moviesTopRecyclerView: RecyclerView,
-    val context: Context,
     viewLifecycleOwner: LifecycleOwner
 ) {
     private var adapter: MovieAdapter
@@ -30,7 +27,7 @@ abstract class MovieListController(
 
     init {
         adapter = MovieAdapter(moviesList, viewLifecycleOwner)
-        moviesTopRecyclerView.layoutManager = LinearLayoutManager(context)
+        moviesTopRecyclerView.layoutManager = LinearLayoutManager(memoryLeak)
         moviesTopRecyclerView.adapter = adapter
 
     }

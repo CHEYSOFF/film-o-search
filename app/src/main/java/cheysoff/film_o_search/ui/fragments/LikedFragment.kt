@@ -1,6 +1,5 @@
 package cheysoff.film_o_search.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,9 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class LikedFragment(
-    private val context: Context
-) : Fragment(R.layout.fragment_liked) {
+class LikedFragment: Fragment(R.layout.fragment_liked) {
     private var moviesList: ArrayList<MovieModel> = arrayListOf()
     private lateinit var moviesLikedRecyclerView: RecyclerView
 

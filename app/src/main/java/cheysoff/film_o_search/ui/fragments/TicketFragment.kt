@@ -1,6 +1,5 @@
 package cheysoff.film_o_search.ui.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,7 +17,7 @@ import retrofit2.Call
 import java.text.DateFormatSymbols
 import java.util.Calendar
 
-class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_ticket) {
+class TicketFragment: Fragment(R.layout.fragment_ticket) {
 
     private lateinit var moviesList: ArrayList<MovieModel>
     private lateinit var moviesTicketRecyclerView: RecyclerView
@@ -42,7 +41,7 @@ class TicketFragment(private val context: Context) : Fragment(R.layout.fragment_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieListController =
-            object : MovieListController(moviesTicketRecyclerView, context, viewLifecycleOwner) {
+            object : MovieListController(moviesTicketRecyclerView, viewLifecycleOwner) {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
                     val calendar = Calendar.getInstance()
                     val currentMonth = DateFormatSymbols().months[calendar.get(Calendar.MONTH)].uppercase()

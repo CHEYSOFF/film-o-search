@@ -6,7 +6,6 @@ import cheysoff.film_o_search.MainActivity.Companion.ScreenTypes
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.ui.fragments.HomeFragment
 import cheysoff.film_o_search.ui.fragments.LikedFragment
-import cheysoff.film_o_search.ui.fragments.SearchFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 class ChooseBar(
@@ -15,11 +14,7 @@ class ChooseBar(
     private val ticketButton: ImageButton,
     private val searchButton: ImageButton,
 
-    private val supportFragmentManager: androidx.fragment.app.FragmentManager,
-    private val homeFragment: HomeFragment,
-    private val ticketFragment: TicketFragment,
-    private val likedFragment: LikedFragment,
-    private val searchFragment: SearchFragment
+    private val supportFragmentManager: androidx.fragment.app.FragmentManager
 
 ) {
 
@@ -39,7 +34,7 @@ class ChooseBar(
             Log.d("3", "3")
         }
         searchButton.setOnClickListener {
-            changeScreen(ScreenTypes.Profile)
+            changeScreen(ScreenTypes.Search)
             Log.d("4", "4")
         }
     }
@@ -56,22 +51,22 @@ class ChooseBar(
         when (type) {
             ScreenTypes.Home -> {
                 homeImage = R.drawable.home_button_selected
-                fragment = homeFragment
+                fragment = HomeFragment()
             }
 
             ScreenTypes.Liked -> {
                 likedImage = R.drawable.liked_selected
-                fragment = likedFragment
+                fragment = LikedFragment()
             }
 
             ScreenTypes.Ticket -> {
                 ticketImage = R.drawable.ticket_selected
-                fragment = ticketFragment
+                fragment = TicketFragment()
             }
 
-            ScreenTypes.Profile -> {
+            ScreenTypes.Search -> {
                 profileImage = R.drawable.search_selected
-                fragment = searchFragment
+                fragment = FragmentController.getFragment(ScreenTypes.Search)
             }
         }
 
