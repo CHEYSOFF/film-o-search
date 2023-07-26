@@ -19,20 +19,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
-class LikedFragment: Fragment(R.layout.fragment_liked) {
-    private var moviesList: ArrayList<MovieModel> = arrayListOf()
-    private lateinit var moviesLikedRecyclerView: RecyclerView
-
-    private lateinit var adapter: MovieAdapter
+class LikedFragment : Fragment(R.layout.fragment_liked) {
 
     private val viewModel: MovieViewModel by activityViewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        moviesList = arrayListOf()
-
-    }
+    private var moviesList: ArrayList<MovieModel> = arrayListOf()
+    private lateinit var moviesLikedRecyclerView: RecyclerView
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,14 +36,13 @@ class LikedFragment: Fragment(R.layout.fragment_liked) {
         moviesLikedRecyclerView = layout.findViewById(R.id.moviesLikedRecyclerView)
         moviesLikedRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        adapter = MovieAdapter(moviesList, viewLifecycleOwner, viewModel)
+        moviesLikedRecyclerView.adapter = adapter
 
         return layout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = MovieAdapter(moviesList, viewLifecycleOwner, viewModel)
-        moviesLikedRecyclerView.adapter = adapter
-
         super.onViewCreated(view, savedInstanceState)
 //        TODO: FIX SHIMMERS
 //        activity?.runOnUiThread {

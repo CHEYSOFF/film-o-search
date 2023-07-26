@@ -62,7 +62,7 @@ class MovieViewHolder(
         }
         // TODO: RENAME THEM TO ENGLISH
         val allGenres = allGenresBuilder.substring(0, allGenresBuilder.length - 2)
-        movieGenre.text = trim(allGenres, Companion.maxGenre)
+        movieGenre.text = trim(allGenres, maxGenre)
     }
 
     private fun setUpName(movie: MovieModel) {
@@ -72,7 +72,7 @@ class MovieViewHolder(
             movie.nameEn
         }
         Log.d("name", actualName.orEmpty())
-        movieName.text = trim(actualName, Companion.maxName)
+        movieName.text = trim(actualName, maxName)
     }
 
     private fun setUpRating(movie: MovieModel) {
@@ -128,7 +128,7 @@ class MovieViewHolder(
     }
 
     private fun setUpYear(movie: MovieModel) {
-        movieYear.text = trim(movie.year, Companion.maxYear)
+        movieYear.text = trim(movie.year, maxYear)
     }
 
     private fun setUpPoster(movie: MovieModel) {

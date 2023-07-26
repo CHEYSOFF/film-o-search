@@ -20,20 +20,21 @@ import cheysoff.film_o_search.ui.MovieListController
 import retrofit2.Call
 
 class SearchFragment : Fragment(R.layout.fragment_search) {
-    private var moviesList: ArrayList<MovieModel>  = arrayListOf()
+
+    private val viewModel: MovieViewModel by activityViewModels()
+
     private var keyword = MutableLiveData<String?>()
 
+    private var moviesList: ArrayList<MovieModel> = arrayListOf()
     private lateinit var moviesSearchRecyclerView: RecyclerView
-    private val viewModel: MovieViewModel by activityViewModels()
     private lateinit var adapter: MovieAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("search frag created", "")
         val layout = inflater.inflate(R.layout.fragment_search, container, false)
+
         moviesSearchRecyclerView = layout.findViewById(R.id.b)
         moviesSearchRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -46,10 +47,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieListController =
-            object : MovieListController(moviesSearchRecyclerView, viewLifecycleOwner) {
+            object : MovieListController() {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
-                    Log.d("query", keyword.toString())
-                    Log.d("queryy", keyword.value.orEmpty())
+                    Log.d("query", keyword.value.orEmpty())
                     return mService.getMoviesByKeyword(keyword.value.orEmpty())
                 }
             }
@@ -71,7 +71,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     fun setKeyword(query: String?) {
         Log.d("q2", query.orEmpty())
         this.keyword.value = query.orEmpty()
-        Log.d("q22", keyword.value.orEmpty())
 
     }
 

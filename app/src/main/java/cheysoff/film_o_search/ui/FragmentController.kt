@@ -8,10 +8,10 @@ import cheysoff.film_o_search.ui.fragments.SearchFragment
 import cheysoff.film_o_search.ui.fragments.TicketFragment
 
 object FragmentController {
-    var homeFragment: HomeFragment? = null
-    var likedFragment: LikedFragment? = null
-    var searchFragment: SearchFragment? = null
-    var ticketFragment: TicketFragment? = null
+    private var homeFragment: HomeFragment? = null
+    private var likedFragment: LikedFragment? = null
+    private var searchFragment: SearchFragment? = null
+    private var ticketFragment: TicketFragment? = null
 
     fun getFragment(fragmentType: ScreenTypes): Fragment {
         when (fragmentType) {

@@ -34,18 +34,11 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = moviesList[position]
         Log.d("movie catched", movie.filmId.toString())
-//        val tmp = viewModel.isLiked(movie.filmId)
-//        binding.lifecycleOwner?.let {
-//            tmp.observe(
-//                it,
-//                Observer { liked -> movie.liked = (liked == true) })
-//        }
         holder.onBind(movie)
     }
 
     fun setData(movies: List<MovieModel>) {
         this.moviesList = movies as ArrayList<MovieModel>
-        // TODO: THINK OF BETTER WAY
         notifyDataSetChanged()
     }
 

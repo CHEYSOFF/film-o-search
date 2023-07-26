@@ -20,21 +20,25 @@ import retrofit2.Call
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    private var moviesList: ArrayList<MovieModel>  = arrayListOf()
-    private lateinit var moviesTopRecyclerView: RecyclerView
+
     private val viewModel: MovieViewModel by activityViewModels()
 
+    private var moviesList: ArrayList<MovieModel> = arrayListOf()
+    private lateinit var moviesTopRecyclerView: RecyclerView
     private lateinit var adapter: MovieAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
         val layout = inflater.inflate(R.layout.fragment_home, container, false)
+
         moviesTopRecyclerView = layout.findViewById(R.id.moviesTopRecyclerView)
         moviesTopRecyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = MovieAdapter(moviesList, viewLifecycleOwner, viewModel)
         moviesTopRecyclerView.adapter = adapter
+
         return layout
 
     }
@@ -43,7 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         val movieListController =
-            object : MovieListController(moviesTopRecyclerView, viewLifecycleOwner) {
+            object : MovieListController() {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
                     //        TODO: FIX SHIMMERS
 
@@ -57,10 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //                        shimmerContainer.visibility = View.GONE
 //                        getView()?.visibility = View.VISIBLE
 //                    }
-                    Log.d("start", "home")
-                    val tmp = mService.getTopMovies()
-                    Log.d("end", "home")
-                    return tmp
+                    return mService.getTopMovies()
                 }
             }
 

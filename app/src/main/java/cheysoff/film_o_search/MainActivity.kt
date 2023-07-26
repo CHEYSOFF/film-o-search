@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var shimmerContainer: ShimmerFrameLayout
+
         enum class ScreenTypes {
             Home,
             Liked,
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        val viewModel = viewModels<MovieViewModel> {
+        viewModels<MovieViewModel> {
             MovieItemModelFactory((application as DatabaseApplication).repository)
         }.value
 
@@ -136,11 +137,16 @@ class MainActivity : AppCompatActivity() {
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.flFragment, (FragmentController.getFragment(ScreenTypes.Search) as SearchFragment))
+                    replace(
+                        R.id.flFragment,
+                        (FragmentController.getFragment(ScreenTypes.Search) as SearchFragment)
+                    )
                     commit()
                 }
                 changeScreen(ScreenTypes.Search)
-                (FragmentController.getFragment(ScreenTypes.Search) as SearchFragment).setKeyword(query)
+                (FragmentController.getFragment(ScreenTypes.Search) as SearchFragment).setKeyword(
+                    query
+                )
                 return true
             }
 

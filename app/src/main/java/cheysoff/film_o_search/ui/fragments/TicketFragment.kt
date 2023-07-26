@@ -21,22 +21,18 @@ import java.text.DateFormatSymbols
 import java.util.Calendar
 
 class TicketFragment : Fragment(R.layout.fragment_ticket) {
-
-    private var moviesList: ArrayList<MovieModel>  = arrayListOf()
-    private lateinit var moviesTicketRecyclerView: RecyclerView
     private val viewModel: MovieViewModel by activityViewModels()
+
+    private var moviesList: ArrayList<MovieModel> = arrayListOf()
+    private lateinit var moviesTicketRecyclerView: RecyclerView
     private lateinit var adapter: MovieAdapter
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val layout = inflater.inflate(R.layout.fragment_ticket, container, false)
+
         moviesTicketRecyclerView = layout.findViewById(R.id.moviesTicketRecyclerView)
         moviesTicketRecyclerView.layoutManager = LinearLayoutManager(context)
 
@@ -48,16 +44,19 @@ class TicketFragment : Fragment(R.layout.fragment_ticket) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val movieListController =
-            object : MovieListController(moviesTicketRecyclerView, viewLifecycleOwner) {
+            object : MovieListController() {
                 override fun doRequest(mService: RetrofitServices): Call<TopMoviesResponse> {
                     val calendar = Calendar.getInstance()
+
                     val currentMonth =
                         DateFormatSymbols().months[calendar.get(Calendar.MONTH)].uppercase()
                     val currentYear = calendar.get(Calendar.YEAR)
+
                     Log.d(
                         "M + Y",
                         "$currentMonth $currentYear " + calendar.get(Calendar.MONTH).toString()
                     )
+
                     return mService.getPremiereMovies(currentYear, currentMonth)
                 }
             }

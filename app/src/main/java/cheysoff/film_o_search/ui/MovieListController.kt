@@ -1,8 +1,6 @@
 package cheysoff.film_o_search.ui
 
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.RecyclerView
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
@@ -14,20 +12,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.coroutines.EmptyCoroutineContext
 
-abstract class MovieListController(
-    moviesTopRecyclerView: RecyclerView,
-    viewLifecycleOwner: LifecycleOwner
-) {
-//    private var adapter: MovieAdapter
+abstract class MovieListController {
     private var mService: RetrofitServices = Common.retrofitService
 
-
-//    init {
-//        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
-//        moviesTopRecyclerView.layoutManager = LinearLayoutManager(moviesTopRecyclerView.context)
-//        moviesTopRecyclerView.adapter = adapter
-//
-//    }
 
     open fun showFilms(callback: (films: ArrayList<MovieModel>) -> Unit) {
         val scope = CoroutineScope(EmptyCoroutineContext)
@@ -46,8 +33,7 @@ abstract class MovieListController(
                         val movies = (moviesResponse.items ?: moviesResponse.films)!!
                         Log.d("success", movies.size.toString())
                         callback.invoke(movies as ArrayList<MovieModel>)
-                    }
-                    else {
+                    } else {
                         Log.d("error", response.code().toString())
                     }
                 }
