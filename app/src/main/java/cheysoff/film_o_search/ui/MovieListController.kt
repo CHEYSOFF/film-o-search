@@ -2,9 +2,7 @@ package cheysoff.film_o_search.ui
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cheysoff.film_o_search.MainActivity.Companion.memoryLeak
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.TopMoviesResponse
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
@@ -20,19 +18,18 @@ abstract class MovieListController(
     moviesTopRecyclerView: RecyclerView,
     viewLifecycleOwner: LifecycleOwner
 ) {
-    private var adapter: MovieAdapter
-    private var moviesList: ArrayList<MovieModel> = arrayListOf()
+//    private var adapter: MovieAdapter
     private var mService: RetrofitServices = Common.retrofitService
 
 
-    init {
-        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
-        moviesTopRecyclerView.layoutManager = LinearLayoutManager(memoryLeak)
-        moviesTopRecyclerView.adapter = adapter
+//    init {
+//        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
+//        moviesTopRecyclerView.layoutManager = LinearLayoutManager(moviesTopRecyclerView.context)
+//        moviesTopRecyclerView.adapter = adapter
+//
+//    }
 
-    }
-
-    open fun showFilms() {
+    open fun showFilms(callback: (films: ArrayList<MovieModel>) -> Unit) {
         val scope = CoroutineScope(EmptyCoroutineContext)
         scope.launch {
 
@@ -47,17 +44,8 @@ abstract class MovieListController(
                         val moviesResponse = response.body()!!
 //                        TODO: make it exception free
                         val movies = (moviesResponse.items ?: moviesResponse.films)!!
-                        Log.d("Has films", movies.size.toString())
-                        moviesList.clear()
-                        for (film in movies) {
-                            film.nameEn?.let { Log.d("FLM!!!", it) }
-                            Log.d("id", film.filmId.toString())
-                            Log.d("kinopoiskId", film.kinopoiskId.toString())
-                            moviesList.add(film)
-                        }
-                        Log.d("size", moviesList.size.toString())
-                        // TODO: THINK OF BETTER WAY
-                        adapter.notifyDataSetChanged()
+                        Log.d("success", movies.size.toString())
+                        callback.invoke(movies as ArrayList<MovieModel>)
                     }
                     else {
                         Log.d("error", response.code().toString())

@@ -6,11 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cheysoff.film_o_search.MainActivity.Companion.viewModel
 import cheysoff.film_o_search.R
+import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.data.models.MovieModel
 import cheysoff.film_o_search.ui.MovieAdapter
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +24,9 @@ class LikedFragment: Fragment(R.layout.fragment_liked) {
     private lateinit var moviesLikedRecyclerView: RecyclerView
 
     private lateinit var adapter: MovieAdapter
+
+    private val viewModel: MovieViewModel by activityViewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +48,7 @@ class LikedFragment: Fragment(R.layout.fragment_liked) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = MovieAdapter(moviesList, viewLifecycleOwner)
+        adapter = MovieAdapter(moviesList, viewLifecycleOwner, viewModel)
         moviesLikedRecyclerView.adapter = adapter
 
         super.onViewCreated(view, savedInstanceState)

@@ -1,6 +1,5 @@
 package cheysoff.film_o_search.ui
 
-import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -9,22 +8,25 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import cheysoff.film_o_search.MainActivity.Companion.viewModel
 import cheysoff.film_o_search.R
 import cheysoff.film_o_search.data.api.Common
 import cheysoff.film_o_search.data.api.retrofit.RetrofitServices
+import cheysoff.film_o_search.data.database.MovieViewModel
 import cheysoff.film_o_search.data.models.MovieModel
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class MovieViewHolder(
-    private val context: Context,
     itemView: View,
-    private val viewLifecycleOwner: LifecycleOwner
+    private val viewLifecycleOwner: LifecycleOwner,
+    private val viewModel: MovieViewModel
 ) :
     RecyclerView.ViewHolder(itemView) {
+//    private val viewModel = ViewModelProvider(this)[MovieViewModel::class.java]
+
     private val movieImage: ImageView = itemView.findViewById(R.id.movie_image)
     private val movieName: TextView = itemView.findViewById(R.id.movie_name)
     private val movieGenre: TextView = itemView.findViewById(R.id.movie_genre)
@@ -34,9 +36,6 @@ class MovieViewHolder(
 
     private var mService: RetrofitServices = Common.retrofitService
 
-    private val maxName = 50
-    private val maxGenre = 100
-    private val maxYear = 4
 
     // TODO: OPEN MOVIE INFO ON CLICK
     fun onBind(movie: MovieModel) {
@@ -63,7 +62,7 @@ class MovieViewHolder(
         }
         // TODO: RENAME THEM TO ENGLISH
         val allGenres = allGenresBuilder.substring(0, allGenresBuilder.length - 2)
-        movieGenre.text = trim(allGenres, maxGenre)
+        movieGenre.text = trim(allGenres, Companion.maxGenre)
     }
 
     private fun setUpName(movie: MovieModel) {
@@ -73,7 +72,7 @@ class MovieViewHolder(
             movie.nameEn
         }
         Log.d("name", actualName.orEmpty())
-        movieName.text = trim(actualName, maxName)
+        movieName.text = trim(actualName, Companion.maxName)
     }
 
     private fun setUpRating(movie: MovieModel) {
@@ -129,7 +128,7 @@ class MovieViewHolder(
     }
 
     private fun setUpYear(movie: MovieModel) {
-        movieYear.text = trim(movie.year, maxYear)
+        movieYear.text = trim(movie.year, Companion.maxYear)
     }
 
     private fun setUpPoster(movie: MovieModel) {
@@ -137,7 +136,7 @@ class MovieViewHolder(
         if (movie.posterUrl.isNullOrEmpty()) {
             movieImage.setImageResource(R.drawable.no_image)
         } else {
-            Glide.with(context).load(movie.posterUrl).into(movieImage)
+            Glide.with(itemView.context).load(movie.posterUrl).into(movieImage)
         }
 
     }
@@ -152,13 +151,13 @@ class MovieViewHolder(
         movieRating.text = movie.rating
         movieRating.setTextColor(
             if (movie.rating == defaultRating) {
-                ContextCompat.getColor(context, R.color.black)
-            } else if (movie.rating!!.toFloat() < 6) {
-                ContextCompat.getColor(context, R.color.red)
-            } else if (movie.rating!!.toFloat() < 8) {
-                ContextCompat.getColor(context, R.color.orange)
+                ContextCompat.getColor(itemView.context, R.color.black)
+            } else if (movie.rating!!.toFloat() < badRating) {
+                ContextCompat.getColor(itemView.context, R.color.red)
+            } else if (movie.rating!!.toFloat() < mediumRating) {
+                ContextCompat.getColor(itemView.context, R.color.orange)
             } else {
-                ContextCompat.getColor(context, R.color.green)
+                ContextCompat.getColor(itemView.context, R.color.green)
             }
         )
         Log.d("rat", movie.rating!!)
@@ -173,6 +172,11 @@ class MovieViewHolder(
 
     companion object {
         const val defaultRating = "-"
+        private const val badRating = 6
+        private const val mediumRating = 8
+        private const val maxName = 50
+        private const val maxGenre = 100
+        private const val maxYear = 4
     }
 
 }
